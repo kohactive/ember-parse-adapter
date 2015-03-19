@@ -130,12 +130,13 @@ export default DS.RESTSerializer.extend({
     if ( 'createdAt' === key ||
          'updatedAt' === key ||
          'emailVerified' === key ||
-         'sessionToken' === key
+         'sessionToken' === key ||
+         'password' === key && Ember.isEmpty(record.get(key))
     ) {
       delete json[key];
 
     } else {
-      this._super( record, json, key, attribute );
+      this._super( record._createSnapshot(), json, key, attribute );
     }
   },
 
